@@ -11,6 +11,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.codepath.bestsellerlistapp.Config.NYT_API_KEY;
+
 /**
  * This code represents the networking layer of the application,
  * Other than updating the API key, you will NOT need to touch this code for the lab,
@@ -25,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NYTimesApiClient {
 
     // TODO: Replace the below API key with your own generated key
-    private static final String API_KEY = "<YOUR-API-KEY-GOES-HERE>";
+    private static final String API_KEY = NYT_API_KEY;
     private NYTimesService nyTimesService;
 
     public NYTimesApiClient() {
