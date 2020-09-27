@@ -1,13 +1,19 @@
 package com.codepath.bestsellerlistapp;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.bestsellerlistapp.models.BestSellerBook;
+import com.codepath.bestsellerlistapp.networking.CallbackResponse;
 
 import java.util.List;
 
@@ -21,8 +27,8 @@ public class BestSellerBooksRecyclerViewAdapter extends RecyclerView.Adapter<Bes
     private final OnListFragmentInteractionListener mListener;
 
     public BestSellerBooksRecyclerViewAdapter(List<BestSellerBook> items, OnListFragmentInteractionListener listener) {
-        books = items;
-        mListener = listener;
+        this.books = items;
+        this.mListener = listener;
     }
 
     @Override
@@ -35,8 +41,14 @@ public class BestSellerBooksRecyclerViewAdapter extends RecyclerView.Adapter<Bes
     @Override
     public void onBindViewHolder(final BookViewHolder holder, int position) {
         holder.mItem = books.get(position);
-        holder.mBookTitle.setText(books.get(position).title);
-        holder.mBookAuthor.setText(books.get(position).author);
+        holder.mBookTitle.setText(holder.mItem.title);
+        holder.mBookAuthor.setText(holder.mItem.author);
+        holder.mRanking.setText(String.valueOf(holder.mItem.rank));
+        holder.mBookDescription.setText(holder.mItem.description);
+        Glide.with(holder.mView)
+                .load(holder.mItem.bookImageUrl)
+                .centerInside()
+                .into(holder.mBookImage);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +60,8 @@ public class BestSellerBooksRecyclerViewAdapter extends RecyclerView.Adapter<Bes
                 }
             }
         });
+
+
     }
 
     @Override
@@ -60,12 +74,18 @@ public class BestSellerBooksRecyclerViewAdapter extends RecyclerView.Adapter<Bes
         public final TextView mBookTitle;
         public final TextView mBookAuthor;
         public BestSellerBook mItem;
+        public TextView mRanking;
+        public TextView mBookDescription;
+        public ImageView mBookImage;
 
         public BookViewHolder(View view) {
             super(view);
             mView = view;
             mBookTitle = (TextView) view.findViewById(R.id.book_title);
             mBookAuthor = (TextView) view.findViewById(R.id.book_author);
+            mRanking = (TextView) view.findViewById(R.id.ranking);
+            mBookDescription = (TextView) view.findViewById(R.id.book_description);
+            mBookImage = (ImageView) view.findViewById(R.id.book_image);
         }
 
         @Override
