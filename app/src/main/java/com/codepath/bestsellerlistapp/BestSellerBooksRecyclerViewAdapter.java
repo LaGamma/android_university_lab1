@@ -1,10 +1,13 @@
 package com.codepath.bestsellerlistapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,6 +52,14 @@ public class BestSellerBooksRecyclerViewAdapter extends RecyclerView.Adapter<Bes
                 .load(holder.mItem.bookImageUrl)
                 .centerInside()
                 .into(holder.mBookImage);
+        holder.mBuyBookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // open Amazon URL
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(holder.mItem.amazonUrl));
+                holder.mView.getContext().startActivity(browserIntent);
+            }
+        });
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +88,7 @@ public class BestSellerBooksRecyclerViewAdapter extends RecyclerView.Adapter<Bes
         public TextView mRanking;
         public TextView mBookDescription;
         public ImageView mBookImage;
+        public Button mBuyBookButton;
 
         public BookViewHolder(View view) {
             super(view);
@@ -86,6 +98,7 @@ public class BestSellerBooksRecyclerViewAdapter extends RecyclerView.Adapter<Bes
             mRanking = (TextView) view.findViewById(R.id.ranking);
             mBookDescription = (TextView) view.findViewById(R.id.book_description);
             mBookImage = (ImageView) view.findViewById(R.id.book_image);
+            mBuyBookButton = (Button) view.findViewById(R.id.buy_button);
         }
 
         @Override
