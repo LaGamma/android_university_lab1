@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NY Times Best Seller</string>
+    <string name="buy_book">Buy on Amazon</string>
 </resources>
