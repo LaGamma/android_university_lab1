@@ -1,6 +1,7 @@
 package com.codepath.bestsellerlistapp;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.core.widget.ContentLoadingProgressBar;
@@ -49,7 +50,17 @@ public class BestSellerBooksFragment extends Fragment implements OnListFragmentI
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
 
         Context context = view.getContext();
-        recyclerView.setLayoutManager(new GridLayoutManager(context, 2));
+        int spanCount;
+        // if phone is in landscape
+        if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // then set GridLayout to span 4 columns
+            spanCount = 4;
+        } else {
+            // else set GridLayout to span 2 columns
+            spanCount = 2;
+        }
+        // set GridLayoutManager with custom span count
+        recyclerView.setLayoutManager(new GridLayoutManager(context, spanCount));
         updateAdapter(progressBar, recyclerView);
         return view;
     }
